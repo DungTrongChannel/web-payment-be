@@ -49,6 +49,7 @@ public class SpringSecurityConfig {
     CorsConfiguration config = new CorsConfiguration();
     config.applyPermitDefaultValues();
     config.addAllowedMethod("PATCH");
+    config.addAllowedMethod("PUT");
     config.addExposedHeader("Authorization");
     source.registerCorsConfiguration("/**", config);
     return new CorsFilter(source);

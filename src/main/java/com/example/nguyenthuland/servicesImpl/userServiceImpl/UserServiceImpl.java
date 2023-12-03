@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
           HttpStatus.INTERNAL_SERVER_ERROR);
     }
     // set role employee
-    userEntity.setRole(1); // 0: admin // 1: employee
+    userEntity.setRole(Constant.ROLE_EMPLOYEE); // 0: admin // 1: employee
     // encrypt password
     userEntity.setPassword(PasswordSecurity.encryptPassword(userEntity.getPassword()));
     // create user
