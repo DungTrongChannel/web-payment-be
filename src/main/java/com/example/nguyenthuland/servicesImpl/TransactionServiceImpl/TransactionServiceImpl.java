@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
-
   private final TransactionRepository repository;
   private final UserRepository userRepository;
 
@@ -66,10 +65,13 @@ public class TransactionServiceImpl implements TransactionService {
   }
 
   @Override
-  public Object get() {
+  public Object get(String uuid, String bank) {
     try {
       // API endpoint URL
-      String apiUrl = "https://api.web2m.com/historyapiacbv3/Dungkaka94@/17183327/2E189A14-1DCD-9ABB-DC1F-C1F68702CBB3";
+      String apiUrl = "";
+      if(bank.equals("ACB")) {
+        apiUrl = "https://api.web2m.com/historyapiacbv3/Dungkaka94@/17183327/2E189A14-1DCD-9ABB-DC1F-C1F68702CBB3";
+      }
 
       URL url = new URL(apiUrl);
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -85,8 +87,13 @@ public class TransactionServiceImpl implements TransactionService {
       reader.close();
       conn.disconnect();
       // Process API response
-      System.out.println("API Response: " + response.toString());
-      return new ResponseEntity<>(response.toString(), HttpStatus.OK);
+
+      if(response.toString().contains(uuid)) {
+        updateStatus(uuid);
+        return new ResponseEntity<>(true, HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>(false, HttpStatus.OK);
+      }
     } catch (Exception e) {
       e.printStackTrace();
       return null;

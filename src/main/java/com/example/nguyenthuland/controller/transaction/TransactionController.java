@@ -39,8 +39,10 @@ public class TransactionController {
     return service.getTransactionDetail(uuid);
   }
 
-  @GetMapping("/test")
-  public Object get() {
-    return service.get();
+  @GetMapping("/check-payment")
+  public Object get(
+      @RequestParam("uuid") String uuid,
+      @RequestParam("bank") String bank) {
+    return service.get(uuid, bank);
   }
 }

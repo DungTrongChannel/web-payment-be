@@ -7,5 +7,5 @@ public interface TransactionService {
   Object updateStatus(String content);
   Object getTransactions(String userName);
   Object getTransactionDetail(String uuid);
-  Object get();
+  Object get(String uuid, String bank);
 }
