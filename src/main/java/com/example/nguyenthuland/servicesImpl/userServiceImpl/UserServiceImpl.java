@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     userRepository.save(userEntity);
     // JWT generate token
     String token = jwtUtilities.generateToken(dto.getUsername(),
-        Collections.singletonList(Constant.ROLE_DEFAULT));
+        Collections.singletonList(String.valueOf(dto.getRole())));
     return new ResponseEntity<>(responseToken(token), HttpStatus.CREATED);
   }
 
@@ -57,8 +57,8 @@ public class UserServiceImpl implements UserService {
     if (userEntity.isPresent() && PasswordSecurity.checkPassword(dto.getPassword(),
         userEntity.get().getPassword())) {
       // JWT generate token
-      String token = jwtUtilities.generateToken(dto.getUsername(),
-          Collections.singletonList(Constant.ROLE_DEFAULT));
+      String token = jwtUtilities.generateToken(userEntity.get().getUsername(),
+          Collections.singletonList(String.valueOf(userEntity.get().getRole())));
       return new ResponseEntity<>(responseToken(token), HttpStatus.OK);
     }
     return new ResponseEntity<>(

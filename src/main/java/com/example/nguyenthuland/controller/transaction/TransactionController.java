@@ -2,7 +2,11 @@ package com.example.nguyenthuland.controller.transaction;
 
 import com.example.nguyenthuland.models.transaction.TransactionDto;
 import com.example.nguyenthuland.services.transaction.TransactionService;
+import jakarta.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +34,14 @@ public class TransactionController {
   }
 
   @GetMapping()
-  public Object getTransactions(@RequestParam("userName") String userName) {
-    return service.getTransactions(userName);
+  public Object getTransactions(
+      @NonNull HttpServletRequest request,
+      @RequestParam("userName") String userName,
+      @RequestParam("fromDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+      @RequestParam("toDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate toDate,
+      @RequestParam(defaultValue = "0") Integer pageNo,
+      @RequestParam(defaultValue = "10") Integer pageSize) {
+    return service.getTransactions(request, userName, fromDate, toDate, pageNo, pageSize);
   }
 
   @GetMapping("/detail")
