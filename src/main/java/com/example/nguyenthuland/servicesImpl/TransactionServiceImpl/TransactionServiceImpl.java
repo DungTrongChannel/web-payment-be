@@ -18,6 +18,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +51,7 @@ public class TransactionServiceImpl implements TransactionService {
     Optional<TransactionEntity> transaction = repository.findFirstByUuid(uuid);
     if (transaction.isPresent()) {
       transaction.get().setStatus(1);
-      transaction.get().setUpdatedDate(LocalDateTime.now());
+      transaction.get().setUpdatedDate(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh")));
       repository.save(transaction.get());
     }
     return new ResponseEntity<>(HttpStatus.ACCEPTED);

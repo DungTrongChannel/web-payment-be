@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -62,7 +63,7 @@ public class TransactionEntity {
     this.content = dto.getContent();
     this.status = Constant.STATUS_DOING;
     this.uuid = dto.getUuid();
-    this.createdDate = LocalDateTime.now();
-    this.updatedDate = LocalDateTime.now();
+    this.createdDate = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+    this.updatedDate = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
   }
 }
